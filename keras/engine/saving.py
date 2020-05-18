@@ -158,7 +158,7 @@ def _serialize_model(model, h5dict, include_optimizer=True):
         weight_names = _uniquify(weight_names)
         layer_group['weight_names'] = weight_names
         for name, val in zip(weight_names, weight_values):
-            layer_group[name] = val
+            layer_group[name.decode()] = val
     if include_optimizer and model.optimizer:
         if isinstance(model.optimizer, optimizers.TFOptimizer):
             warnings.warn(
@@ -217,7 +217,7 @@ def _serialize_model(model, h5dict, include_optimizer=True):
                 weight_names = _uniquify(weight_names)
                 optimizer_weights_group['weight_names'] = weight_names
                 for name, val in zip(weight_names, weight_values):
-                    optimizer_weights_group[name] = val
+                    optimizer_weights_group[name.decode()] = val
 
 
 def _deserialize_model(h5dict, custom_objects=None, compile=True):
